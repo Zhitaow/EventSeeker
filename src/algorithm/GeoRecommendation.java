@@ -17,22 +17,21 @@ public class GeoRecommendation implements Recommendation {
   @Override
   public List<Item> recommendItems(String userId, double lat, double lon, String radius) {
     DBConnection conn = DBConnectionFactory.getDBConnection();
-
-    Set<String> favoriteItems = conn.getFavoriteItemIds(userId);  // step 1  // db queries
-
-    Set<String> allCategories = new HashSet<>();  //step 2
+    // step 1:  db queries
+    Set<String> favoriteItems = conn.getFavoriteItemIds(userId); 
+    //step 2: create a hash set of all favorite items
+    Set<String> allCategories = new HashSet<>(); 
     for (String item : favoriteItems) {
-      allCategories.addAll(conn.getCategories(item));  // db queries
+      allCategories.addAll(conn.getCategories(item)); 
     }
-
-    Set<Item> recommendedItems = new HashSet<>();  // step 3
+    // step 3: for each category, call external API to search nearby events of the same category
+    Set<Item> recommendedItems = new HashSet<>(); 
     for (String category : allCategories) {
-      List<Item> items = conn.searchItems(userId, lat, lon, category, radius);  // call external API
+      List<Item> items = conn.searchItems(userId, lat, lon, category, radius); 
       recommendedItems.addAll(items);
     }
-
-    // Answer: because we will have ranking now.
-    List<Item> filteredItems = new ArrayList<>();  // step 4
+    // step 4: store these events to a list to facilitate ranking sort in step 5
+    List<Item> filteredItems = new ArrayList<>(); 
     for (Item item : recommendedItems) {
       if (!favoriteItems.contains(item.getItemId())) {
         filteredItems.add(item);
@@ -43,7 +42,6 @@ public class GeoRecommendation implements Recommendation {
     Collections.sort(filteredItems, new Comparator<Item>() {
       @Override
       public int compare(Item item1, Item item2) {
-        // What other feathers can be used here?
         double distance1 = getDistance(item1.getLatitude(), item1.getLongitude(), lat, lon);
         double distance2 = getDistance(item2.getLatitude(), item2.getLongitude(), lat, lon);
         // return the increasing order of distance.
@@ -54,8 +52,8 @@ public class GeoRecommendation implements Recommendation {
     return filteredItems;
   }
 
-  // Calculate the distances between two geolocations.
-  // Source : http://andrew.hedges.name/experiments/haversine/
+  // Calculate the distances between two geo-locations.
+  // Reference : http://andrew.hedges.name/experiments/haversine/
   private static double getDistance(double lat1, double lon1, double lat2, double lon2) {
     double dlon = lon2 - lon1;
     double dlat = lat2 - lat1;
