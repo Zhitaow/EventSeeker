@@ -30,8 +30,7 @@ public class TicketMasterAPI implements ExternalAPI {
 		
 		// Convert geo location to geo hash with a precision of 4 (+- 20km)
 		String geohash = GeoHash.encodeGeohash(lat, lon, 4);
-		
-//		String latlong = lat + "," + lon;
+
 		if (term == null) {
 			term = DEFAULT_TERM;
 		}
@@ -112,7 +111,6 @@ public class TicketMasterAPI implements ExternalAPI {
 			builder.setStartDate(getStartDate(event));
 			builder.setEndDate(getEndDate(event));
 			JSONObject venue = getVenue(event);
-			
 			if (venue != null) {
 				if (!venue.isNull("address")) {
 					JSONObject address = venue.getJSONObject("address");
@@ -219,7 +217,7 @@ public class TicketMasterAPI implements ExternalAPI {
 
 	private Set<String> getCategories(JSONObject event) throws JSONException {
 		Set<String> categories = new HashSet<>();
-		if (event.isNull("classifications")) return categories;     // ADDED a null checking
+		if (event.isNull("classifications")) return categories;     // debug update: added a null checking condition
 			JSONArray classifications = (JSONArray) event.get("classifications");
 		for (int j = 0; j < classifications.length(); j++) {
 			JSONObject classification = classifications.getJSONObject(j);

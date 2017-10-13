@@ -15,7 +15,6 @@ import external.GoogleGeoCodeAPI;
 @WebServlet("/getGeo")
 public class getGeo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-//	private DBConnection conn = DBConnectionFactory.getDBConnection();
     /**
      * @see HttpServlet#HttpServlet()
      */

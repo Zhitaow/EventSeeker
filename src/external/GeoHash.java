@@ -1,7 +1,7 @@
 package external;
 
 /**
- * Source: http://developer-should-know.com/post/87283491372/geohash-encoding-and-decoding-algorithm *
+ * Reference: http://developer-should-know.com/post/87283491372/geohash-encoding-and-decoding-algorithm *
  */
 public class GeoHash {
 

@@ -10,8 +10,8 @@ import org.json.JSONObject;
 import entity.Item;
 
 public class GoogleGeoCodeAPI {
-	private static final String API_HOST = "maps.googleapis.com";// "app.ticketmaster.com";
-	private static final String SEARCH_PATH = "/maps/api/geocode/json"; // "/discovery/v2/events.json";
+	private static final String API_HOST = "maps.googleapis.com";
+	private static final String SEARCH_PATH = "/maps/api/geocode/json"; 
 	private static final String API_KEY = "AIzaSyAEYvh-e-z8sCLiskg-O8UjSeEL0cnPG_0";
 
 	/**

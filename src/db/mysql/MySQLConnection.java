@@ -112,10 +112,6 @@ public class MySQLConnection implements DBConnection {
         statement.setString(1, itemId);
         ResultSet rs = statement.executeQuery();
         ItemBuilder builder = new ItemBuilder();
-
-        // Because itemId is unique and given one item id there should
-        // have
-        // only one result returned.
         if (rs.next()) {
           builder.setItemId(rs.getString("item_id"));
           builder.setName(rs.getString("name"));
@@ -135,10 +131,7 @@ public class MySQLConnection implements DBConnection {
           builder.setStartDate(rs.getString("start_date"));
           builder.setEndDate(rs.getString("end_date"));
         }
-        
         // Join categories information into builder.
-        // But why we do not join in sql? Because it'll be difficult
-        // to set it in builder.
         sql = "SELECT * from categories WHERE item_id = ?";
         statement = conn.prepareStatement(sql);
         statement.setString(1, itemId);
@@ -218,10 +211,7 @@ public class MySQLConnection implements DBConnection {
     ExternalAPI api = ExternalAPIFactory.getExternalAPI();
     List<Item> items = api.search(lat, lon, term, radius);
     for (Item item : items) {
-      // Save the item into our own db.
-      // Student question: why we need to store them on our own instead of
-      // reusing external API's
-      // db?
+      // Save the item into db.
       saveItem(item);
     }
     return items;
