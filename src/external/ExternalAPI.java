@@ -1,7 +1,6 @@
 package external;
 
 import java.util.List;
-
 import entity.Item;
 
 public interface ExternalAPI {

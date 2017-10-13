@@ -60,27 +60,6 @@ public class ItemHistory extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		doGet(request, response);
-//		try {
-//			JSONObject input = RpcHelper.readJsonObject(request);
-//			if (input.has("user_id") && input.has("visited")) {
-//				String userId = (String) input.get("user_id");
-//				JSONArray array = (JSONArray) input.get("visited");
-//				List<String> visitedEvents = new ArrayList<>();
-//				for (int i = 0; i < array.length(); i++) {
-//					String eventId = (String) array.get(i);
-//					visitedEvents.add(eventId);
-//				}
-//	
-//				RpcHelper.writeJsonObject(response,
-//						new JSONObject().put("status", "OK"));
-//			} else {
-//				RpcHelper.writeJsonObject(response,
-//						new JSONObject().put("status", "InvalidParameter"));
-//			}
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
 		try {
 			JSONObject input = RpcHelper.readJsonObject(request);
 			String userId = input.getString("user_id");

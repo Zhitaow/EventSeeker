@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import entity.Item;
 import entity.Item.ItemBuilder;
 
@@ -41,8 +39,6 @@ public class TicketMasterAPI implements ExternalAPI {
 			radius = DEFAULT_RADIUS;
 		}
 		term = urlEncodeHelper(term);
-//		String query = String.format("apikey=%s&latlong=%s&keyword=%s", API_KEY, latlong, term);
-//		String query = String.format("apikey=%s&geoPoint=%s&keyword=%s", API_KEY, geohash, term);
 		String query = String.format("apikey=%s&geoPoint=%s&keyword=%s&radius=%s&page=0&sort=distance,asc", API_KEY, geohash, term, radius);
 		
 		try {
@@ -152,8 +148,7 @@ public class TicketMasterAPI implements ExternalAPI {
 				}				
 			}
 
-			// Uses this builder pattern we can freely add fields.
-			// why use builder? because we want to copy all fields in builder to a new item
+			// Uses this builder pattern to facilitate add fields freely.
 			Item item = builder.build();
 			itemList.add(item);
 		}
